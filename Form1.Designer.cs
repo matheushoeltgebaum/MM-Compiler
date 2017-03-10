@@ -50,7 +50,7 @@
             // 
             // ToolBox
             // 
-            this.ToolBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.ToolBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ToolBox.Controls.Add(this.ButtonEquipe);
             this.ToolBox.Controls.Add(this.ButtonGerarCodigo);
@@ -68,98 +68,116 @@
             // 
             // ButtonEquipe
             // 
+            this.ButtonEquipe.Image = ((System.Drawing.Image)(resources.GetObject("ButtonEquipe.Image")));
+            this.ButtonEquipe.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonEquipe.Location = new System.Drawing.Point(0, 513);
             this.ButtonEquipe.Name = "ButtonEquipe";
             this.ButtonEquipe.Size = new System.Drawing.Size(144, 63);
             this.ButtonEquipe.TabIndex = 4;
             this.ButtonEquipe.Text = "Equipe [F1]";
+            this.ButtonEquipe.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonEquipe.UseVisualStyleBackColor = true;
-            this.ButtonEquipe.Click += ButtonEquipe_Click;
             // 
             // ButtonGerarCodigo
             // 
+            this.ButtonGerarCodigo.Image = ((System.Drawing.Image)(resources.GetObject("ButtonGerarCodigo.Image")));
+            this.ButtonGerarCodigo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonGerarCodigo.Location = new System.Drawing.Point(0, 448);
             this.ButtonGerarCodigo.Name = "ButtonGerarCodigo";
             this.ButtonGerarCodigo.Size = new System.Drawing.Size(144, 63);
             this.ButtonGerarCodigo.TabIndex = 4;
             this.ButtonGerarCodigo.Text = "Gerar Código [F9]";
+            this.ButtonGerarCodigo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonGerarCodigo.UseVisualStyleBackColor = true;
-            this.ButtonGerarCodigo.Click += ButtonGerarCodigo_Click;
             // 
             // ButtonCompilar
             // 
+            this.ButtonCompilar.Image = ((System.Drawing.Image)(resources.GetObject("ButtonCompilar.Image")));
+            this.ButtonCompilar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonCompilar.Location = new System.Drawing.Point(0, 384);
             this.ButtonCompilar.Name = "ButtonCompilar";
             this.ButtonCompilar.Size = new System.Drawing.Size(144, 63);
             this.ButtonCompilar.TabIndex = 4;
             this.ButtonCompilar.Text = "Compilar [F8]";
+            this.ButtonCompilar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCompilar.UseVisualStyleBackColor = true;
-            this.ButtonCompilar.Click += ButtonCompilar_Click;
             // 
             // ButtonRecortar
             // 
+            this.ButtonRecortar.Image = ((System.Drawing.Image)(resources.GetObject("ButtonRecortar.Image")));
+            this.ButtonRecortar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonRecortar.Location = new System.Drawing.Point(0, 320);
             this.ButtonRecortar.Name = "ButtonRecortar";
             this.ButtonRecortar.Size = new System.Drawing.Size(144, 63);
             this.ButtonRecortar.TabIndex = 4;
             this.ButtonRecortar.Text = "Recortar [Ctrl+X]";
+            this.ButtonRecortar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonRecortar.UseVisualStyleBackColor = true;
-            this.ButtonRecortar.Click += ButtonRecortar_Click;
             // 
             // ButtonColar
             // 
+            this.ButtonColar.Image = ((System.Drawing.Image)(resources.GetObject("ButtonColar.Image")));
+            this.ButtonColar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonColar.Location = new System.Drawing.Point(0, 256);
             this.ButtonColar.Name = "ButtonColar";
             this.ButtonColar.Size = new System.Drawing.Size(144, 63);
             this.ButtonColar.TabIndex = 4;
             this.ButtonColar.Text = "Colar [Ctrl+V]";
+            this.ButtonColar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonColar.UseVisualStyleBackColor = true;
-            this.ButtonColar.Click += ButtonColar_Click;
             // 
             // ButtonCopiar
             // 
+            this.ButtonCopiar.Image = ((System.Drawing.Image)(resources.GetObject("ButtonCopiar.Image")));
+            this.ButtonCopiar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonCopiar.Location = new System.Drawing.Point(0, 192);
             this.ButtonCopiar.Name = "ButtonCopiar";
             this.ButtonCopiar.Size = new System.Drawing.Size(144, 63);
             this.ButtonCopiar.TabIndex = 4;
             this.ButtonCopiar.Text = "Copiar [Ctrl+C]";
+            this.ButtonCopiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCopiar.UseVisualStyleBackColor = true;
-            this.ButtonCopiar.Click += ButtonCopiar_Click;
             // 
             // ButtonSalvar
             // 
+            this.ButtonSalvar.Image = ((System.Drawing.Image)(resources.GetObject("ButtonSalvar.Image")));
+            this.ButtonSalvar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonSalvar.Location = new System.Drawing.Point(0, 128);
             this.ButtonSalvar.Name = "ButtonSalvar";
             this.ButtonSalvar.Size = new System.Drawing.Size(144, 63);
             this.ButtonSalvar.TabIndex = 4;
             this.ButtonSalvar.Text = "Salvar [Ctrl+S]";
+            this.ButtonSalvar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonSalvar.UseVisualStyleBackColor = true;
-            this.ButtonSalvar.Click += ButtonSalvar_Click;
             // 
             // ButtonAbrir
             // 
+            this.ButtonAbrir.Image = ((System.Drawing.Image)(resources.GetObject("ButtonAbrir.Image")));
+            this.ButtonAbrir.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonAbrir.Location = new System.Drawing.Point(0, 64);
             this.ButtonAbrir.Name = "ButtonAbrir";
             this.ButtonAbrir.Size = new System.Drawing.Size(144, 63);
             this.ButtonAbrir.TabIndex = 4;
             this.ButtonAbrir.Text = "Abrir [Ctrl+O]";
+            this.ButtonAbrir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonAbrir.UseVisualStyleBackColor = true;
-            this.ButtonAbrir.Click += ButtonAbrir_Click;
             // 
             // ButtonNovo
             // 
+            this.ButtonNovo.Image = ((System.Drawing.Image)(resources.GetObject("ButtonNovo.Image")));
+            this.ButtonNovo.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.ButtonNovo.Location = new System.Drawing.Point(0, 0);
             this.ButtonNovo.Name = "ButtonNovo";
             this.ButtonNovo.Size = new System.Drawing.Size(144, 63);
             this.ButtonNovo.TabIndex = 2;
             this.ButtonNovo.Text = "Novo [Ctrl+N]";
+            this.ButtonNovo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonNovo.UseVisualStyleBackColor = true;
-            this.ButtonNovo.Click += ButtonNovo_Click;
             // 
             // TextEditor
             // 
-            this.TextEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.TextEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TextEditor.Location = new System.Drawing.Point(153, 2);
             this.TextEditor.Name = "TextEditor";
@@ -168,11 +186,10 @@
             this.TextEditor.TabIndex = 1;
             this.TextEditor.Text = "";
             this.TextEditor.WordWrap = false;
-            this.TextEditor.TextChanged += TextEditor_TextChanged;
             // 
             // MessageDisplay
             // 
-            this.MessageDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.MessageDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.MessageDisplay.Location = new System.Drawing.Point(153, 488);
             this.MessageDisplay.Name = "MessageDisplay";
@@ -185,7 +202,7 @@
             // 
             // StatusBar
             // 
-            this.StatusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.StatusBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.StatusBar.Controls.Add(this.LabelPath);
             this.StatusBar.Controls.Add(this.LabelStatus);
@@ -194,7 +211,7 @@
             this.StatusBar.Size = new System.Drawing.Size(970, 42);
             this.StatusBar.TabIndex = 3;
             // 
-            // LabelArquivo
+            // LabelPath
             // 
             this.LabelPath.AutoSize = true;
             this.LabelPath.Location = new System.Drawing.Point(3, 23);

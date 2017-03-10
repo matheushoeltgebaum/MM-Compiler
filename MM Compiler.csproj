@@ -46,9 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BorderLines.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="BorderLines.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,9 +55,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextAreaLines.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TextAreaLines.cs" />
     <Compile Include="TextAreaLines.Designer.cs">
       <DependentUpon>TextAreaLines.cs</DependentUpon>
     </Compile>
@@ -69,12 +70,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="TextAreaLines.resx">
       <DependentUpon>TextAreaLines.cs</DependentUpon>
     </EmbeddedResource>
@@ -90,6 +86,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\abrir.png" />
+    <Content Include="Resources\colar.png" />
+    <Content Include="Resources\compilador.ico" />
+    <Content Include="Resources\compilar.png" />
+    <Content Include="Resources\copiar.png" />
+    <Content Include="Resources\equipe.png" />
+    <Content Include="Resources\gerarCodigo.png" />
+    <Content Include="Resources\novo.png" />
+    <Content Include="Resources\recortar.png" />
+    <Content Include="Resources\salvar.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
