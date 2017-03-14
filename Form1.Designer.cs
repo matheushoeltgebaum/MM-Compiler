@@ -80,7 +80,6 @@
             this.ButtonEquipe.Text = "Equipe [F1]";
             this.ButtonEquipe.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonEquipe.UseVisualStyleBackColor = true;
-            this.ButtonEquipe.Click += ButtonEquipe_Click;
             // 
             // ButtonGerarCodigo
             // 
@@ -93,7 +92,6 @@
             this.ButtonGerarCodigo.Text = "Gerar Código [F9]";
             this.ButtonGerarCodigo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonGerarCodigo.UseVisualStyleBackColor = true;
-            this.ButtonGerarCodigo.Click += ButtonGerarCodigo_Click;
             // 
             // ButtonCompilar
             // 
@@ -106,7 +104,6 @@
             this.ButtonCompilar.Text = "Compilar [F8]";
             this.ButtonCompilar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCompilar.UseVisualStyleBackColor = true;
-            this.ButtonCompilar.Click += ButtonCompilar_Click;
             // 
             // ButtonRecortar
             // 
@@ -119,7 +116,6 @@
             this.ButtonRecortar.Text = "Recortar [Ctrl+X]";
             this.ButtonRecortar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonRecortar.UseVisualStyleBackColor = true;
-            this.ButtonRecortar.Click += ButtonRecortar_Click;
             // 
             // ButtonColar
             // 
@@ -132,7 +128,6 @@
             this.ButtonColar.Text = "Colar [Ctrl+V]";
             this.ButtonColar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonColar.UseVisualStyleBackColor = true;
-            this.ButtonColar.Click += ButtonColar_Click;
             // 
             // ButtonCopiar
             // 
@@ -145,7 +140,6 @@
             this.ButtonCopiar.Text = "Copiar [Ctrl+C]";
             this.ButtonCopiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCopiar.UseVisualStyleBackColor = true;
-            this.ButtonCopiar.Click += ButtonCopiar_Click;
             // 
             // ButtonSalvar
             // 
@@ -158,7 +152,6 @@
             this.ButtonSalvar.Text = "Salvar [Ctrl+S]";
             this.ButtonSalvar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonSalvar.UseVisualStyleBackColor = true;
-            this.ButtonSalvar.Click += ButtonSalvar_Click;
             // 
             // ButtonAbrir
             // 
@@ -171,7 +164,6 @@
             this.ButtonAbrir.Text = "Abrir [Ctrl+O]";
             this.ButtonAbrir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonAbrir.UseVisualStyleBackColor = true;
-            this.ButtonAbrir.Click += ButtonAbrir_Click;
             // 
             // ButtonNovo
             // 
@@ -184,7 +176,6 @@
             this.ButtonNovo.Text = "Novo [Ctrl+N]";
             this.ButtonNovo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonNovo.UseVisualStyleBackColor = true;
-            this.ButtonNovo.Click += ButtonNovo_Click;
             // 
             // MessageDisplay
             // 
@@ -258,16 +249,16 @@
             // 
             this.RichLineNumbers._SeeThroughMode_ = false;
             this.RichLineNumbers.AutoSizing = true;
-            this.RichLineNumbers.BackgroundGradient_AlphaColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.RichLineNumbers.BackgroundGradient_AlphaColor = System.Drawing.Color.Gainsboro;
             this.RichLineNumbers.BackgroundGradient_BetaColor = System.Drawing.Color.LightSteelBlue;
             this.RichLineNumbers.BackgroundGradient_Direction = System.Drawing.Drawing2D.LinearGradientMode.Horizontal;
-            this.RichLineNumbers.BorderLines_Color = System.Drawing.Color.Transparent;
-            this.RichLineNumbers.BorderLines_Style = System.Drawing.Drawing2D.DashStyle.Dot;
+            this.RichLineNumbers.BorderLines_Color = System.Drawing.Color.LightGray;
+            this.RichLineNumbers.BorderLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
             this.RichLineNumbers.BorderLines_Thickness = 1F;
             this.RichLineNumbers.Dock = System.Windows.Forms.DockStyle.Left;
             this.RichLineNumbers.DockSide = LineNumbers.LineNumbers_For_RichTextBox.LineNumberDockSide.Left;
             this.RichLineNumbers.GridLines_Color = System.Drawing.Color.Transparent;
-            this.RichLineNumbers.GridLines_Style = System.Drawing.Drawing2D.DashStyle.Dot;
+            this.RichLineNumbers.GridLines_Style = System.Drawing.Drawing2D.DashStyle.Solid;
             this.RichLineNumbers.GridLines_Thickness = 1F;
             this.RichLineNumbers.LineNrs_Alignment = System.Drawing.ContentAlignment.TopRight;
             this.RichLineNumbers.LineNrs_AntiAlias = true;

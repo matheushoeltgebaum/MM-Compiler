@@ -652,15 +652,42 @@ namespace LineNumbers
 			//   so we need to split the text into lines ourselves, and use the Index of each zSplit-line's first character instead of the RTB's.
 			string[] zSplit = zParent.Text.Split(Environment.NewLine.ToCharArray());
             //int qtdeLinhas = zSplit.Length < 100 ? 100 : zSplit.Length;
+		    var linhasPosiiveis = (Height/FontHeight) ;
 
-			if (zSplit.Length < 2) {
+			if (zSplit.Length < linhasPosiiveis) {
 				//   Just one line in the text = one linenumber
 				//   NOTE:  zContentRectangle is built by the zParent.ContentsResized event.
 				Point zPoint = zParent.GetPositionFromCharIndex(0);
-				zLNIs.Add(new LineNumberItem(1, new Rectangle(new Point(0, zPoint.Y - 1 + zParentInMe), new Size(this.Width, zContentRectangle.Height - zPoint.Y))));
+			    var posicaoAltura = zPoint.Y;
+			    for (int i = 1; i <= linhasPosiiveis; i++)
+			    {
+                    zLNIs.Add(new LineNumberItem(i, new Rectangle(new Point(0, posicaoAltura - 1 + zParentInMe), new Size(this.Width, zContentRectangle.Height - posicaoAltura))));
+			        posicaoAltura += FontHeight;
+			    }
+                //zLNIs.Add(new LineNumberItem(1, new Rectangle(new Point(0, zPoint.Y - 1 + zParentInMe), new Size(this.Width, zContentRectangle.Height - zPoint.Y))));
+                //   And now we can easily compute the height of the LineNumberItems by comparing each item's Y coordinate with that of the next line.
+                //   There's at least two items in the list, and the last item is a "nextline-placeholder" that will be removed.
+                for (var zA = 0; zA <= zLNIs.Count - 2; zA++)
+                {
+                    zLNIs[zA].Rectangle.Height = Math.Max(1, zLNIs[zA + 1].Rectangle.Y - zLNIs[zA].Rectangle.Y);
+                    //zLNIs(zA).Rectangle.Height = Math.Max(1, zLNIs(zA + 1).Rectangle.Y - zLNIs(zA).Rectangle.Y);
+                }
+                //   Removing the placeholder item
+                zLNIs.RemoveAt(zLNIs.Count - 1);
 
+                // Set the Format to the width of the highest possible number so that LeadingZeroes shows the correct amount of zeroes.
+                if (zLineNumbers_ShowAsHexadecimal == true)
+                {
+                    //zLineNumbers_Format = "".PadRight(zSplit.Length.ToString("X").Length, "0");
+                    zLineNumbers_Format = "".PadRight(zLNIs.Count.ToString("X").Length, '0');
+                }
+                else
+                {
+                    //zLineNumbers_Format = "".PadRight(zSplit.Length.ToString().Length, "0");
+                    zLineNumbers_Format = "".PadRight(zLNIs.Count.ToString().Length, '0');
+                }
 
-			} else {
+            } else {
                 Point pt = new Point(0, 0);
                 // get First Index & First Line from richTextBox1
                 int First_Index = ParentRichTextBox.GetCharIndexFromPosition(pt);
