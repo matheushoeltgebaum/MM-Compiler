@@ -44,8 +44,8 @@
             this.LabelPath = new System.Windows.Forms.Label();
             this.LabelStatus = new System.Windows.Forms.Label();
             this.PanelCenter = new System.Windows.Forms.Panel();
-            this.RichLineNumbers = new LineNumbers.LineNumbers_For_RichTextBox();
             this.TextEditor = new System.Windows.Forms.RichTextBox();
+            this.RichLineNumbers = new LineNumbers.LineNumbers_For_RichTextBox();
             this.ToolBox.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.PanelCenter.SuspendLayout();
@@ -80,7 +80,6 @@
             this.ButtonEquipe.Text = "Equipe [F1]";
             this.ButtonEquipe.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonEquipe.UseVisualStyleBackColor = true;
-            this.ButtonEquipe.Click += ButtonEquipe_Click;
             // 
             // ButtonGerarCodigo
             // 
@@ -93,7 +92,6 @@
             this.ButtonGerarCodigo.Text = "Gerar Código [F9]";
             this.ButtonGerarCodigo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonGerarCodigo.UseVisualStyleBackColor = true;
-            this.ButtonGerarCodigo.Click += ButtonGerarCodigo_Click;
             // 
             // ButtonCompilar
             // 
@@ -106,7 +104,6 @@
             this.ButtonCompilar.Text = "Compilar [F8]";
             this.ButtonCompilar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCompilar.UseVisualStyleBackColor = true;
-            this.ButtonCompilar.Click += ButtonCompilar_Click;
             // 
             // ButtonRecortar
             // 
@@ -119,7 +116,6 @@
             this.ButtonRecortar.Text = "Recortar [Ctrl+X]";
             this.ButtonRecortar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonRecortar.UseVisualStyleBackColor = true;
-            this.ButtonRecortar.Click += ButtonRecortar_Click;
             // 
             // ButtonColar
             // 
@@ -132,7 +128,6 @@
             this.ButtonColar.Text = "Colar [Ctrl+V]";
             this.ButtonColar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonColar.UseVisualStyleBackColor = true;
-            this.ButtonColar.Click += ButtonColar_Click;
             // 
             // ButtonCopiar
             // 
@@ -145,7 +140,6 @@
             this.ButtonCopiar.Text = "Copiar [Ctrl+C]";
             this.ButtonCopiar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonCopiar.UseVisualStyleBackColor = true;
-            this.ButtonCopiar.Click += ButtonCopiar_Click;
             // 
             // ButtonSalvar
             // 
@@ -158,7 +152,6 @@
             this.ButtonSalvar.Text = "Salvar [Ctrl+S]";
             this.ButtonSalvar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonSalvar.UseVisualStyleBackColor = true;
-            this.ButtonSalvar.Click += ButtonSalvar_Click;
             // 
             // ButtonAbrir
             // 
@@ -171,7 +164,6 @@
             this.ButtonAbrir.Text = "Abrir [Ctrl+O]";
             this.ButtonAbrir.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonAbrir.UseVisualStyleBackColor = true;
-            this.ButtonAbrir.Click += ButtonAbrir_Click;
             // 
             // ButtonNovo
             // 
@@ -184,7 +176,6 @@
             this.ButtonNovo.Text = "Novo [Ctrl+N]";
             this.ButtonNovo.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ButtonNovo.UseVisualStyleBackColor = true;
-            this.ButtonNovo.Click += ButtonNovo_Click;
             // 
             // MessageDisplay
             // 
@@ -232,12 +223,27 @@
             this.PanelCenter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelCenter.BackColor = System.Drawing.Color.White;
+            this.PanelCenter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PanelCenter.Controls.Add(this.TextEditor);
             this.PanelCenter.Controls.Add(this.RichLineNumbers);
             this.PanelCenter.Location = new System.Drawing.Point(153, 2);
             this.PanelCenter.Name = "PanelCenter";
             this.PanelCenter.Size = new System.Drawing.Size(820, 480);
             this.PanelCenter.TabIndex = 1;
+            // 
+            // TextEditor
+            // 
+            this.TextEditor.AcceptsTab = true;
+            this.TextEditor.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.TextEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TextEditor.Location = new System.Drawing.Point(28, 0);
+            this.TextEditor.Name = "TextEditor";
+            this.TextEditor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.TextEditor.Size = new System.Drawing.Size(790, 478);
+            this.TextEditor.TabIndex = 5;
+            this.TextEditor.Text = "";
+            this.TextEditor.WordWrap = false;
             // 
             // RichLineNumbers
             // 
@@ -274,21 +280,8 @@
             this.RichLineNumbers.Show_GridLines = true;
             this.RichLineNumbers.Show_LineNrs = true;
             this.RichLineNumbers.Show_MarginLines = true;
-            this.RichLineNumbers.Size = new System.Drawing.Size(17, 489);
+            this.RichLineNumbers.Size = new System.Drawing.Size(28, 478);
             this.RichLineNumbers.TabIndex = 7;
-            // 
-            // TextEditor
-            // 
-            this.TextEditor.AcceptsTab = true;
-            this.TextEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextEditor.Location = new System.Drawing.Point(17, 0);
-            this.TextEditor.Name = "txtCodigo";
-            this.TextEditor.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.TextEditor.Size = new System.Drawing.Size(992, 489);
-            this.TextEditor.TabIndex = 5;
-            this.TextEditor.Text = "";
-            this.TextEditor.WordWrap = false;
-            this.TextEditor.TextChanged += TextEditor_TextChanged;
             // 
             // FormCompiler
             // 
