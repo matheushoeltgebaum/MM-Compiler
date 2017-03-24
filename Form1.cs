@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Text;
+using MM_Compiler.AnaliseLexica;
 
 namespace MM_Compiler
 {
@@ -25,7 +26,24 @@ namespace MM_Compiler
 
         private void ButtonCompilar_Click(object sender, EventArgs e)
         {
-            this.MessageDisplay.Text = Environment.NewLine + "Compilação de programas ainda não foi implementada.";
+            Lexico lex = new Lexico();
+            lex.SetInput(TextEditor.Text);
+
+            try
+            {
+                Token t = null;
+                this.MessageDisplay.Text = string.Empty;
+                while ((t = lex.NextToken()) != null)
+                {
+                    this.MessageDisplay.Text += t.lexeme;
+
+
+                }
+            }
+            catch (LexicalError le)
+            {
+                this.MessageDisplay.Text = $"{le.Message}, em {le.position}";
+            }
         }
 
         private void ButtonRecortar_Click(object sender, EventArgs e)
