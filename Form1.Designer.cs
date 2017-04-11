@@ -190,6 +190,7 @@ namespace MM_Compiler
             // 
             this.MessageDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.MessageDisplay.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MessageDisplay.Location = new System.Drawing.Point(153, 488);
             this.MessageDisplay.Name = "MessageDisplay";
             this.MessageDisplay.ReadOnly = true;
@@ -253,7 +254,6 @@ namespace MM_Compiler
             this.TextEditor.TabIndex = 5;
             this.TextEditor.Text = "";
             this.TextEditor.WordWrap = false;
-            this.TextEditor.TextChanged += TextEditor_TextChanged;
             // 
             // RichLineNumbers
             // 

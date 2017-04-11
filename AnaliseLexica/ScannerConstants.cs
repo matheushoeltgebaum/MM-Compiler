@@ -2024,9 +2024,9 @@ namespace MM_Compiler.AnaliseLexica
 
         public String[] SCANNER_ERROR =
         {
-        "Caractere não esperado",
+        "%CARACTERENAOESPERADO%",
         "",
-        "Erro identificando constantecaractere",
+        "constante caracter inválida ou não finalizada",
         "",
         "",
         "",

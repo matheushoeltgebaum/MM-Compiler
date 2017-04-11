@@ -32,18 +32,36 @@ namespace MM_Compiler
             try
             {
                 Token t = null;
-                this.MessageDisplay.Text = string.Empty;
+                this.MessageDisplay.Text += $"\r\n{"linha".PadRight(7)}{"classe".PadRight(20)}{"lexema"}";
                 while ((t = lex.NextToken()) != null)
                 {
-                    this.MessageDisplay.Text += t.lexeme;
-
-
+                    var lexema = t.lexeme;
+                    var linha = this.TextEditor.GetLineFromCharIndex(t.position);
+                    var classe = GetClass(t.id);
+                    this.MessageDisplay.Text += $"\r\n{linha.ToString().PadRight(7)}{classe.PadRight(20)}{lexema}";
                 }
+                this.MessageDisplay.Text += "\r\n    programa compilado com sucesso";
             }
             catch (LexicalError le)
             {
-                this.MessageDisplay.Text = $"{le.Message}, em {le.position}";
+                if (le.Message.Equals("%CARACTERENAOESPERADO%"))
+                {
+                    MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(le.position)} – {TextEditor.Text.Substring(le.position,1)} símbolo inválido";
+                }
+                else
+                    MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(le.position)} – {le.Message}";
             }
+        }
+
+        private string GetClass(int idToken)
+        {
+            if (idToken == 2) return "identificador";
+            if (idToken == 3) return "constante inteira";
+            if (idToken == 4) return "constante real";
+            if (idToken == 5) return "constante caractere";
+            if (idToken >= 6 && idToken <= 32) return "palavra reservada";
+            if (idToken >= 33 && idToken <= 51) return "símbolo especial";
+            return "Token não reconhecido!";
         }
 
         private void ButtonRecortar_Click(object sender, EventArgs e)
