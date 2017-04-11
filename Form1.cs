@@ -32,7 +32,7 @@ namespace MM_Compiler
             try
             {
                 Token t = null;
-                this.MessageDisplay.Text += $"\r\n{"linha".PadRight(7)}{"classe".PadRight(20)}{"lexema"}";
+                this.MessageDisplay.Text = $"\r\n{"linha".PadRight(7)}{"classe".PadRight(20)}{"lexema"}";
                 while ((t = lex.NextToken()) != null)
                 {
                     var lexema = t.lexeme;
@@ -60,7 +60,7 @@ namespace MM_Compiler
             if (idToken == 4) return "constante real";
             if (idToken == 5) return "constante caractere";
             if (idToken >= 6 && idToken <= 32) return "palavra reservada";
-            if (idToken >= 33 && idToken <= 51) return "símbolo especial";
+            if (idToken >= 33 && idToken <= 49) return "símbolo especial";
             return "Token não reconhecido!";
         }
 
