@@ -11,6 +11,7 @@ namespace MM_Compiler
         public FormCompiler()
         {
             InitializeComponent();
+
         }
 
         #region Métodos sobre a View
