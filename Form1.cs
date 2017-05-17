@@ -36,9 +36,9 @@ namespace MM_Compiler
                 this.MessageDisplay.Text = $"\r\n{"linha".PadRight(7)}{"classe".PadRight(20)}{"lexema"}";
                 while ((t = lex.NextToken()) != null)
                 {
-                    var lexema = t.lexeme;
-                    var linha = this.TextEditor.GetLineFromCharIndex(t.position);
-                    var classe = GetClass(t.id);
+                    var lexema = t.Lexeme;
+                    var linha = this.TextEditor.GetLineFromCharIndex(t.Position);
+                    var classe = GetClass(t.Id);
                     this.MessageDisplay.Text += $"\r\n{linha.ToString().PadRight(7)}{classe.PadRight(20)}{lexema}";
                 }
                 this.MessageDisplay.Text += "\r\n    programa compilado com sucesso";
