@@ -2018,11 +2018,9 @@ namespace MM_Compiler.AnaliseLexica
 
         public String[] SCANNER_ERROR =
         {
-            "Caractere não esperado",
+            "%CARACTERENAOESPERADO%",
             "",
-            "Erro identificando constante_caractere",
-            "",
-            "",
+            "constante caracter inválida ou não finalizada",
             "",
             "",
             "",
@@ -2038,19 +2036,21 @@ namespace MM_Compiler.AnaliseLexica
             "",
             "",
             "",
-            "Erro identificando constante_caractere",
-            "Erro identificando <ignorar>",
-            "Erro identificando constante_real",
+            "",
+            "",
+            "constante caracter inválida ou não finalizada",
+            "comentário não finalizado",
+            "constante real inválida ou não finalizada",
             "",
             "",
             "",
             "",
             "",
-            "Erro identificando <ignorar>",
-            "Erro identificando <ignorar>",
+            "comentário não finalizado",
+            "comentário não finalizado",
             "",
             "",
-            "Erro identificando <ignorar>",
+            "comentário não finalizado",
             ""
     };
     }
