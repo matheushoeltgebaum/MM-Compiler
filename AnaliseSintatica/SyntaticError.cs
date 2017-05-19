@@ -9,11 +9,15 @@ namespace MM_Compiler.AnaliseSintatica
 {
     public class SyntaticError : AnalysisError
     {
-        public SyntaticError(String msg, int position) : base(msg, position)
+        public SyntaticError(string msg, Token token) : base(msg, token)
         {
         }
 
-        public SyntaticError(String msg) : base(msg)
+        public SyntaticError(string msg, int position) : base(msg, position)
+        {
+        }
+
+        public SyntaticError(string msg) : base(msg)
         {
         }
     }

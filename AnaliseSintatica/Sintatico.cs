@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MM_Compiler.AnaliseLexica;
 using MM_Compiler.AnaliseSemantica;
 
@@ -65,7 +61,7 @@ namespace MM_Compiler.AnaliseSintatica
                 }
                 else
                 {
-                    throw new SyntaticError(PARSER_ERROR[x], currentToken.Position);
+                    throw new SyntaticError(PARSER_ERROR[x], currentToken);
                 }
             }
             else if (isNonTerminal(x))
@@ -73,7 +69,7 @@ namespace MM_Compiler.AnaliseSintatica
                 if (pushProduction(x, a))
                     return false;
                 else
-                    throw new SyntaticError(PARSER_ERROR[x], currentToken.Position);
+                    throw new SyntaticError(PARSER_ERROR[x], currentToken);
             }
             else // isSemanticAction(x)
             {

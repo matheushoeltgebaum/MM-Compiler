@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Text;
 using MM_Compiler.AnaliseLexica;
+using MM_Compiler.AnaliseSemantica;
+using MM_Compiler.AnaliseSintatica;
 
 namespace MM_Compiler
 {
@@ -27,30 +29,30 @@ namespace MM_Compiler
 
         private void ButtonCompilar_Click(object sender, EventArgs e)
         {
-            Lexico lex = new Lexico();
-            lex.SetInput(TextEditor.Text);
+            var lexico = new Lexico();
+            var sintatico = new Sintatico();
+            var semantico = new Semantico();
+
+            lexico.SetInput(TextEditor.Text);
 
             try
             {
-                Token t = null;
-                this.MessageDisplay.Text = $"\r\n{"linha".PadRight(7)}{"classe".PadRight(20)}{"lexema"}";
-                while ((t = lex.NextToken()) != null)
-                {
-                    var lexema = t.Lexeme;
-                    var linha = this.TextEditor.GetLineFromCharIndex(t.Position);
-                    var classe = GetClass(t.Id);
-                    this.MessageDisplay.Text += $"\r\n{linha.ToString().PadRight(7)}{classe.PadRight(20)}{lexema}";
-                }
-                this.MessageDisplay.Text += "\r\n    programa compilado com sucesso";
+                sintatico.parse(lexico, semantico);
+
+                MessageDisplay.Text = @"Programa compilado com Sucesso";
             }
             catch (LexicalError le)
             {
-                if (le.Message.Equals("%CARACTERENAOESPERADO%"))
-                {
-                    MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(le.position)} – {TextEditor.Text.Substring(le.position,1)} símbolo inválido";
-                }
-                else
-                    MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(le.position)} – {le.Message}";
+                MessageDisplay.Text = le.Message.Equals("%CARACTERENAOESPERADO%")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)} – {TextEditor.Text.Substring(le.Position, 1)} símbolo inválido"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)} – {le.Message}";
+            }
+            catch (SyntaticError se)
+            {
+
+                MessageDisplay.Text = se.Token.Lexeme.Equals("$") 
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)} – {string.Format(se.Message, "fim do programa")}"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)} – {string.Format(se.Message, se.Token.Lexeme)}";
             }
         }
 

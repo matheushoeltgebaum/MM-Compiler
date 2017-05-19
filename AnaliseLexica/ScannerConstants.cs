@@ -2011,10 +2011,10 @@ namespace MM_Compiler.AnaliseLexica
              { 0, 0, 0, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25 };
 
         public String[] SPECIAL_CASES_KEYS =
-             {  "algoritmo", "até", "caracter", "e", "então", "escreva", "falso", "fim", "função", "inteiro", "interrompa", "início", "leia", "lógico", "não", "ou", "procedimento", "quebra", "real", "repita", "retorne", "se", "senão", "variáveis", "verdadeiro" };
+             {  "ALGORITMO", "ATÉ", "CARACTER", "E", "ENTÃO", "ESCREVA", "FALSO", "FIM", "FUNÇÃO", "INÍCIO",  "INTEIRO", "INTERROMPA", "LEIA", "LÓGICO", "NÃO", "OU", "PROCEDIMENTO", "QUEBRA", "REAL", "REPITA", "RETORNE", "SE", "SENÃO", "VARIÁVEIS", "VERDADEIRO" };
 
         public int[] SPECIAL_CASES_VALUES =
-        {  6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 15, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
+        {  6, 7, 8, 9, 10, 11, 12, 13, 14, 15 , 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 };
 
         public String[] SCANNER_ERROR =
         {

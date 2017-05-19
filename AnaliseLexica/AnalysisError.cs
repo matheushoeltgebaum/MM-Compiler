@@ -1,28 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MM_Compiler.AnaliseLexica
 {
     public class AnalysisError : Exception
     {
-        public int position { get; private set; }
+        public int Position { get; private set; }
 
-        public AnalysisError(String msg, int position) : base(msg)
+        public Token Token { get; private set; }
+
+        public AnalysisError(string msg, Token token) : base(msg)
         {
-            this.position = position;
+            Position = token.Position;
+            Token = token;
         }
 
-        public AnalysisError(String msg) : base(msg)
+        public AnalysisError(string msg, int position) : base(msg)
         {
-            this.position = -1;
+            Position = position;
         }
 
-        public override String ToString()
+        public AnalysisError(string msg) : base(msg)
         {
-            return base.ToString() + ", @ " + position;
+            this.Position = -1;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + ", @ " + Position;
         }
     }
 }
