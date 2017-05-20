@@ -164,98 +164,98 @@ namespace MM_Compiler.AnaliseSintatica
         public static String[] PARSER_ERROR =
         {
             "",
-            "Era esperado fim de programa",
-            "Era esperado identificador",
-            "Era esperado constante_inteira",
-            "Era esperado constante_real",
-            "Era esperado constante_caractere",
-            "Era esperado algoritmo",
-            "Era esperado ate",
-            "Era esperado caracter",
-            "Era esperado e",
-            "Era esperado entao",
-            "Era esperado escreva",
-            "Era esperado falso",
-            "Era esperado fim",
-            "Era esperado funcao",
-            "Era esperado inicio",
-            "Era esperado inteiro",
-            "Era esperado interrompa",
-            "Era esperado leia",
-            "Era esperado logico",
-            "Era esperado nao",
-            "Era esperado ou",
-            "Era esperado procedimento",
-            "Era esperado quebra",
-            "Era esperado real",
-            "Era esperado repita",
-            "Era esperado retorne",
-            "Era esperado se",
-            "Era esperado senao",
-            "Era esperado variaveis",
-            "Era esperado verdadeiro",
-            "Era esperado \"+\"",
-            "Era esperado \"-\"",
-            "Era esperado \"*\"",
-            "Era esperado \"/\"",
-            "Era esperado \",\"",
-            "Era esperado \":\"",
-            "Era esperado \";\"",
-            "Era esperado \"<-\"",
-            "Era esperado \"=\"",
-            "Era esperado \"<>\"",
-            "Era esperado \"<\"",
-            "Era esperado \"<=\"",
-            "Era esperado \">\"",
-            "Era esperado \">=\"",
-            "Era esperado \"(\"",
-            "Era esperado \")\"",
-            "<programa> inválido",
-            "<cabecalho_modulos> inválido",
-            "<lista_comandos> inválido",
-            "<comando> inválido",
-            "<lista_modulos> inválido",
-            "<modulo> inválido",
-            "<cabecalho> inválido",
-            "<lista_parametros> inválido",
-            "<continuacao_lista_parametros> inválido",
-            "<parametro> inválido",
-            "<lista_identificadores> inválido",
-            "<tipo> inválido",
-            "<variaveis> inválido",
-            "<lista_variaveis> inválido",
-            "<continuacao_lista_variaveis> inválido",
-            "<cmd_atribuicao> inválido",
-            "<cmd_entrada> inválido",
-            "<cmd_saida> inválido",
-            "<lista_valores> inválido",
-            "<valor> inválido",
-            "<cmd_selecao> inválido",
-            "<cmd_selecao_senao> inválido",
-            "<cmd_repeticao> inválido",
-            "<interrompa> inválido",
-            "<retorne> inválido",
-            "<cmd_chamada_modulo> inválido",
-            "<parametros_reais> inválido",
-            "<lista_expressoes> inválido",
-            "<funcao> inválido",
-            "<procedimento> inválido",
-            "<lista_identificadores_cont> inválido",
-            "<expressao> inválido",
-            "<elemento> inválido",
-            "<relacional> inválido",
-            "<operador_relacional> inválido",
-            "<aritmetica> inválido",
-            "<termo> inválido",
-            "<aritmetica_cont> inválido",
-            "<fator_identificador> inválido",
-            "<fator> inválido",
-            "<comando_identificador> inválido",
-            "<lista_valores_cont> inválido",
-            "<lista_expressoes_cont> inválido",
-            "<termo_cont> inválido",
-            "<expressao_cont> inválido",
-            "<relacional_cont> inválido"
+            "encontrado {0} esperado fim de programa",//Era esperado fim de programa
+            "encontrado {0} esperado identificador",//Era esperado identificador
+            "encontrado {0} esperado constante inteira",//Era esperado constante_inteira
+            "encontrado {0} esperado constante real",//Era esperado constante_real
+            "encontrado {0} esperado constante caractere",//Era esperado constante_caractere
+            "encontrado {0} esperado algoritmo",//Era esperado algoritmo
+            "encontrado {0} esperado até",//Era esperado ate
+            "encontrado {0} esperado caracter",//Era esperado caracter
+            "encontrado {0} esperado e",//Era esperado e
+            "encontrado {0} esperado então",//Era esperado entao
+            "encontrado {0} esperado escreva",//Era esperado escreva
+            "encontrado {0} esperado falso",//Era esperado falso
+            "encontrado {0} esperado fim",//Era esperado fim
+            "enocntrado {0} esperado função",//Era esperado funcao
+            "encontrado {0} esperado início",//Era esperado inicio
+            "encontrado {0} esperado inteiro",//Era esperado inteiro
+            "encontrado {0} esperado interrompa",//Era esperado interrompa
+            "encontrado {0} esperado leia",//Era esperado leia
+            "encontrado {0} esperado lógico",//Era esperado logico
+            "encontrado {0} esperado não",//Era esperado nao
+            "encontrado {0} esperado ou",//Era esperado ou
+            "encontrado {0} esperado procedimento",//Era esperado procedimento
+            "encontrado {0} esperado quebra",//Era esperado quebra
+            "encontrado {0} esperado real",//Era esperado real
+            "encontrado {0} esperado repita",//Era esperado repita
+            "encontrado {0} esperado retorne",//Era esperado retorne
+            "encontrado {0} esperado se",//Era esperado se
+            "encontrado {0} esperado senão",//Era esperado senao
+            "encontrado {0} esperado variáveis",//Era esperado variaveis
+            "encontrado {0} esperado verdadeiro",//Era esperado verdadeiro
+            "encontrado {0} esperado +",//Era esperado \"+\"
+            "encontrado {0} esperado -",//Era esperado \"-\"
+            "encontrado {0} esperado *",//Era esperado \"*\"
+            "encontrado {0} esperado /",//Era esperado \"/\"
+            "encontrado {0} esperado ,",//Era esperado \",\"
+            "encontrado {0} esperado :",//Era esperado \":\"
+            "encontrado {0} esperado ;",//Era esperado \";\"
+            "encontrado {0} esperado <-",//Era esperado \"<-\"
+            "encontrado {0} esperado =",//Era esperado \"=\"
+            "encontrado {0} esperado <>",//Era esperado \"<>\"
+            "encontrado {0} esperado <",//Era esperado \"<\"
+            "encontrado {0} esperado <=",//Era esperado \"<=\"
+            "encontrado {0} esperado >",//Era esperado \">\"
+            "encontrado {0} esperado >=",//Era esperado \">=\"
+            "encontrado {0} esperado (",//Era esperado \"(\"
+            "encontrado {0} esperado )",//Era esperado \")\"
+            "encontrado {0} esperado algoritmo",//<programa> inválido
+            "encontrado {0} esperado função  início  procedimento  variáveis",//<cabecalho_modulos> inválido
+            "encontrado {0} esperado identificador  até  escreva  fim  interrompa  leia  repita  retorne  se  senão",//<lista_comandos> inválido
+            "encontrado {0} esperado identificador  escreva  interrompa  leia  repita  retorne  se",//<comando> inválido
+            "encontrado {0} esperado fim de arquivo  função  procedimento",//<lista_modulos> inválido
+            "encontrado {0} esperado função  procedimento",//<modulo> inválido
+            "encontrado {0} esperado função  procedimento",//<cabecalho> inválido
+            "encontrado {0} esperado identificador  )",//<lista_parametros> inválido
+            "encontrado {0} esperado ;  )",//<continuacao_lista_parametros> inválido
+            "encontrado {0} esperado identificador",//<parametro> inválido
+            "encontrado {0} esperado identificador",//<lista_identificadores> inválido
+            "encontrado {0} esperado caracter  inteiro  lógico  real",//<tipo> inválido
+            "encontrado {0} esperado início  variáveis",//<variaveis> inválido
+            "encontrado {0} esperado identificador",//<lista_variaveis> inválido
+            "encontrado {0} esperado identificador  início",//<continuacao_lista_variaveis> inválido
+            "encontrado {0} esperado <-",//<cmd_atribuicao> inválido
+            "encontrado {0} esperado leia",//<cmd_entrada> inválido
+            "encontrado {0} esperado escreva",//<cmd_saida> inválido
+            "encontrado {0} esperado expressão",//<lista_valores> inválido
+            "encontrado {0} esperado expressão  quebra",//<valor> inválido
+            "encontrado {0} esperado se",//<cmd_selecao> inválido
+            "encontrado {0} esperado fim  senão",//<cmd_selecao_senao> inválido
+            "encontrado {0} esperado repita",//<cmd_repeticao> inválido
+            "encontrado {0} esperado interrompa",//<interrompa> inválido
+            "encontrado {0} esperado retorne",//<retorne> inválido
+            "encontrado {0} esperado  (",//<cmd_chamada_modulo> inválido
+            "encontrado {0} esperado expressão  )",//<parametros_reais> inválido
+            "encontrado {0} esperado expressão",//<lista_expressoes> inválido
+            "encontrado {0} esperado função",//<funcao> inválido
+            "encontrado {0} esperado procedimento",//<procedimento> inválido
+            "encontrado {0} esperado ,  :  )",//<lista_identificadores_cont> inválido
+            "encontrado {0} esperado expressão",//<expressao> inválido
+            "encontrado {0} esperado expressão",//<elemento> inválido
+            "encontrado {0} esperado expressão",//<relacional> inválido
+            "encontrado {0} esperado expressão",//<operador_relacional> inválido
+            "encontrado {0} esperado expressão",//<aritmetica> inválido
+            "encontrado {0} esperado expressão",//<termo> inválido
+            "encontrado {0} esperado expressão",//<aritmetica_cont> inválido
+            "encontrado {0} esperado expressão",//<fator_identificador> inválido
+            "encontrado {0} esperado expressão",//<fator> inválido
+            "encontrado {0} esperado expressão",//<comando_identificador> inválido
+            "encontrado {0} esperado expressão",//<lista_valores_cont> inválido
+            "encontrado {0} esperado expressão",//<lista_expressoes_cont> inválido
+            "encontrado {0} esperado expressão",//<termo_cont> inválido
+            "encontrado {0} esperado expressão",//<expressao_cont> inválido
+            "encontrado {0} esperado expressão"//<relacional_cont> inválido
         };
     }
 }

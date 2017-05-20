@@ -39,20 +39,20 @@ namespace MM_Compiler
             {
                 sintatico.parse(lexico, semantico);
 
-                MessageDisplay.Text = @"Programa compilado com Sucesso";
+                MessageDisplay.Text = @"Programa compilado com sucesso";
             }
             catch (LexicalError le)
             {
                 MessageDisplay.Text = le.Message.Equals("%CARACTERENAOESPERADO%")
-                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)} – {TextEditor.Text.Substring(le.Position, 1)} símbolo inválido"
-                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)} – {le.Message}";
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {TextEditor.Text.Substring(le.Position, 1)} símbolo inválido"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {le.Message}";
             }
             catch (SyntaticError se)
             {
 
                 MessageDisplay.Text = se.Token.Lexeme.Equals("$") 
-                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)} – {string.Format(se.Message, "fim do programa")}"
-                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)} – {string.Format(se.Message, se.Token.Lexeme)}";
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, "fim do programa")}"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, se.Token.Lexeme)}";
             }
         }
 
