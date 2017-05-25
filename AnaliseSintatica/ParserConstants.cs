@@ -177,7 +177,7 @@ namespace MM_Compiler.AnaliseSintatica
             "encontrado {0} esperado escreva",//Era esperado escreva
             "encontrado {0} esperado falso",//Era esperado falso
             "encontrado {0} esperado fim",//Era esperado fim
-            "enocntrado {0} esperado função",//Era esperado funcao
+            "encontrado {0} esperado função",//Era esperado funcao
             "encontrado {0} esperado início",//Era esperado inicio
             "encontrado {0} esperado inteiro",//Era esperado inteiro
             "encontrado {0} esperado interrompa",//Era esperado interrompa
