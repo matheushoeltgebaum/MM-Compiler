@@ -254,6 +254,7 @@ namespace MM_Compiler
             this.TextEditor.TabIndex = 5;
             this.TextEditor.Text = "";
             this.TextEditor.WordWrap = false;
+            this.TextEditor.TextChanged += TextEditor_TextChanged;
             // 
             // RichLineNumbers
             // 
