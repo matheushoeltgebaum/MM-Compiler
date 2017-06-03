@@ -2,6 +2,9 @@
 using System;
 using System.IO;
 using System.Text;
+using MM_Compiler.AnaliseLexica;
+using MM_Compiler.AnaliseSemantica;
+using MM_Compiler.AnaliseSintatica;
 
 namespace MM_Compiler
 {
@@ -10,6 +13,7 @@ namespace MM_Compiler
         public FormCompiler()
         {
             InitializeComponent();
+
         }
 
         #region Métodos sobre a View
@@ -25,7 +29,42 @@ namespace MM_Compiler
 
         private void ButtonCompilar_Click(object sender, EventArgs e)
         {
-            this.MessageDisplay.Text = Environment.NewLine + "Compilação de programas ainda não foi implementada.";
+            var lexico = new Lexico();
+            var sintatico = new Sintatico();
+            var semantico = new Semantico();
+
+            lexico.SetInput(TextEditor.Text);
+
+            try
+            {
+                sintatico.parse(lexico, semantico);
+
+                MessageDisplay.Text = @"Programa compilado com sucesso";
+            }
+            catch (LexicalError le)
+            {
+                MessageDisplay.Text = le.Message.Equals("%CARACTERENAOESPERADO%")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {TextEditor.Text.Substring(le.Position, 1)} símbolo inválido"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {le.Message}";
+            }
+            catch (SyntaticError se)
+            {
+
+                MessageDisplay.Text = se.Token.Lexeme.Equals("$") 
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, "fim do programa")}"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, se.Token.Lexeme)}";
+            }
+        }
+
+        private string GetClass(int idToken)
+        {
+            if (idToken == 2) return "identificador";
+            if (idToken == 3) return "constante inteira";
+            if (idToken == 4) return "constante real";
+            if (idToken == 5) return "constante caractere";
+            if (idToken >= 6 && idToken <= 30) return "palavra reservada";
+            if (idToken >= 31 && idToken <= 46) return "símbolo especial";
+            return "Token não reconhecido!";
         }
 
         private void ButtonRecortar_Click(object sender, EventArgs e)

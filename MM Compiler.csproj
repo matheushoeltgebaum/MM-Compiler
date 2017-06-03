@@ -46,6 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnaliseLexica\AnalysisError.cs" />
+    <Compile Include="AnaliseLexica\Constants.cs" />
+    <Compile Include="AnaliseLexica\LexicalError.cs" />
+    <Compile Include="AnaliseLexica\Lexico.cs" />
+    <Compile Include="AnaliseLexica\ScannerConstants.cs" />
+    <Compile Include="AnaliseLexica\Token.cs" />
+    <Compile Include="AnaliseSemantica\SemanticError.cs" />
+    <Compile Include="AnaliseSemantica\Semantico.cs" />
+    <Compile Include="AnaliseSintatica\ParserConstants.cs" />
+    <Compile Include="AnaliseSintatica\Sintatico.cs" />
+    <Compile Include="AnaliseSintatica\SyntaticError.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
