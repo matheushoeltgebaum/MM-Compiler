@@ -29,6 +29,8 @@ namespace MM_Compiler
 
         private void ButtonCompilar_Click(object sender, EventArgs e)
         {
+            ButtonSalvar.PerformClick();
+
             var lexico = new Lexico();
             var sintatico = new Sintatico();
             var semantico = new Semantico();
@@ -37,7 +39,7 @@ namespace MM_Compiler
 
             try
             {
-                sintatico.parse(lexico, semantico);
+                sintatico.parse(lexico, semantico, LabelPath.Text);
 
                 MessageDisplay.Text = @"Programa compilado com sucesso";
             }

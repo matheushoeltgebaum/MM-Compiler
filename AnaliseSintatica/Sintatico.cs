@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using MM_Compiler.AnaliseLexica;
 using MM_Compiler.AnaliseSemantica;
+using MM_Compiler.GeradorCodigo;
 
 namespace MM_Compiler.AnaliseSintatica
 {
@@ -28,7 +30,7 @@ namespace MM_Compiler.AnaliseSintatica
             return x >= FIRST_SEMANTIC_ACTION;
         }
 
-        private bool step()
+        private bool Step(string filepath)
         {
             if (currentToken == null)
             {
@@ -73,7 +75,7 @@ namespace MM_Compiler.AnaliseSintatica
             }
             else // isSemanticAction(x)
             {
-                semanticAnalyser.executeAction(x-FIRST_SEMANTIC_ACTION, previousToken);
+                semanticAnalyser.ExecuteAction(x-FIRST_SEMANTIC_ACTION, previousToken, filepath);
                 return false;
             }
         }
@@ -95,7 +97,7 @@ namespace MM_Compiler.AnaliseSintatica
                 return false;
         }
 
-        public void parse(Lexico scanner, Semantico semanticAnalyser)
+        public void parse(Lexico scanner, Semantico semanticAnalyser, string filepath)
         {
             this.scanner = scanner;
             this.semanticAnalyser = semanticAnalyser;
@@ -106,7 +108,10 @@ namespace MM_Compiler.AnaliseSintatica
 
             currentToken = scanner.NextToken();
 
-            while (!step()) ;
+            while (!Step(filepath)) ;
+            
+            ILGenerator ilGenerator = new ILGenerator(semanticAnalyser.CodigoObjeto, filepath);
+            ilGenerator.GenerateILFile();
         }
     }
 }
