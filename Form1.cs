@@ -43,18 +43,22 @@ namespace MM_Compiler
 
                 MessageDisplay.Text = @"Programa compilado com sucesso";
             }
-            catch (LexicalError le)
+            catch (LexicalError lexicalError)
             {
-                MessageDisplay.Text = le.Message.Equals("%CARACTERENAOESPERADO%")
-                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {TextEditor.Text.Substring(le.Position, 1)} símbolo inválido"
-                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(le.Position)+1} – {le.Message}";
+                MessageDisplay.Text = lexicalError.Message.Equals("%CARACTERENAOESPERADO%")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(lexicalError.Position) + 1} – {TextEditor.Text.Substring(lexicalError.Position, 1)} símbolo inválido"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(lexicalError.Position) + 1} – {lexicalError.Message}";
             }
-            catch (SyntaticError se)
+            catch (SyntaticError syntaticError)
             {
 
-                MessageDisplay.Text = se.Token.Lexeme.Equals("$") 
-                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, "fim do programa")}"
-                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(se.Position)+1} – {string.Format(se.Message, se.Token.Lexeme)}";
+                MessageDisplay.Text = syntaticError.Token.Lexeme.Equals("$")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(syntaticError.Position) + 1} – {string.Format(syntaticError.Message, "fim do programa")}"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(syntaticError.Position) + 1} – {string.Format(syntaticError.Message, syntaticError.Token.Lexeme)}";
+            }
+            catch (SemanticError semanticError)
+            {
+                MessageDisplay.Text = semanticError.Message;
             }
         }
 
