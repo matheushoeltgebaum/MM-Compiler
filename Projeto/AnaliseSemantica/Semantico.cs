@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,12 +16,18 @@ namespace MM_Compiler.AnaliseSemantica
         public string CodigoObjeto { get; private set; }
         private StringBuilder CodigoObjetoAcao { get; set; }
         private Stack<string> PilhaTipos { get; set; }
+        private Hashtable TabelaSimbolos { get; set; }
+        private string TipoIdentificador { get; set; }
+        private List<string> ListaIdentificadores { get; set; }
 
         public Semantico()
         {
             this.PilhaTipos = new Stack<string>();
             this.CodigoObjeto = string.Empty;
             this.Operador = string.Empty;
+            this.TabelaSimbolos = new Hashtable();
+            this.TipoIdentificador = string.Empty;
+            this.ListaIdentificadores = new List<string>();
         }
 
         public void ExecuteAction(int action, Token token, string filepath)
@@ -93,6 +100,60 @@ namespace MM_Compiler.AnaliseSemantica
                 case 21:
                     ExecuteAction21(token);
                     break;
+                case 22:
+                    ExecuteAction22(token);
+                    break;
+                case 23:
+                    ExecuteAction23(token);
+                    break;
+                case 24:
+                    ExecuteAction24();
+                    break;
+                case 25:
+                    ExecuteAction25();
+                    break;
+                case 26:
+                    ExecuteAction26(token);
+                    break;
+                case 27:
+                    ExecuteAction27();
+                    break;
+                case 28:
+                    ExecuteAction28();
+                    break;
+                case 29:
+                    ExecuteAction29();
+                    break;
+                case 30:
+                    ExecuteAction30();
+                    break;
+                case 31:
+                    ExecuteAction31();
+                    break;
+                case 32:
+                    ExecuteAction32();
+                    break;
+                case 33:
+                    ExecuteAction33();
+                    break;
+                case 34:
+                    ExecuteAction34();
+                    break;
+                case 35:
+                    ExecuteAction35();
+                    break;
+                case 36:
+                    ExecuteAction36();
+                    break;
+                case 37:
+                    ExecuteAction37();
+                    break;
+                case 38:
+                    ExecuteAction38();
+                    break;
+                case 39:
+                    ExecuteAction39();
+                    break;
             }
         }
         
@@ -100,20 +161,19 @@ namespace MM_Compiler.AnaliseSemantica
         {
             string tipoOperando1 = PilhaTipos.Pop();
             string tipoOperando2 = PilhaTipos.Pop();
-            
-            if (!((tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")) &&
-                  (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64"))))
-            {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
-            }
 
-            if (tipoOperando1.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("float64"))
+            if (tipoOperando1.ToLower().Equals("int64") && tipoOperando2.ToLower().Equals("int64"))
+            {
+                PilhaTipos.Push("int64");
+            }
+            else if (tipoOperando1.ToLower().Equals("float64") && (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64")) ||
+                     tipoOperando2.ToLower().Equals("float64") && (tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")))
             {
                 PilhaTipos.Push("float64");
             }
             else
             {
-                PilhaTipos.Push("int64");
+                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
             }
 
             CodigoObjetoAcao.AppendLine("add");
@@ -125,19 +185,18 @@ namespace MM_Compiler.AnaliseSemantica
             string tipoOperando1 = PilhaTipos.Pop();
             string tipoOperando2 = PilhaTipos.Pop();
 
-            if (!((tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")) &&
-                  (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64"))))
+            if (tipoOperando1.ToLower().Equals("int64") && tipoOperando2.ToLower().Equals("int64"))
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (subtração).");
+                PilhaTipos.Push("int64");
             }
-
-            if (tipoOperando1.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("float64"))
+            else if (tipoOperando1.ToLower().Equals("float64") && (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64")) ||
+                     tipoOperando2.ToLower().Equals("float64") && (tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")))
             {
                 PilhaTipos.Push("float64");
             }
             else
             {
-                PilhaTipos.Push("int64");
+                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
             }
 
             CodigoObjetoAcao.AppendLine("sub");
@@ -149,19 +208,18 @@ namespace MM_Compiler.AnaliseSemantica
             string tipoOperando1 = PilhaTipos.Pop();
             string tipoOperando2 = PilhaTipos.Pop();
 
-            if (!((tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")) &&
-                  (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64"))))
+            if (tipoOperando1.ToLower().Equals("int64") && tipoOperando2.ToLower().Equals("int64"))
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (multiplicação).");
+                PilhaTipos.Push("int64");
             }
-
-            if (tipoOperando1.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("float64"))
+            else if (tipoOperando1.ToLower().Equals("float64") && (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64")) ||
+                     tipoOperando2.ToLower().Equals("float64") && (tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")))
             {
                 PilhaTipos.Push("float64");
             }
             else
             {
-                PilhaTipos.Push("int64");
+                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
             }
 
             CodigoObjetoAcao.AppendLine("mul");
@@ -173,19 +231,18 @@ namespace MM_Compiler.AnaliseSemantica
             string tipoOperando1 = PilhaTipos.Pop();
             string tipoOperando2 = PilhaTipos.Pop();
 
-            if (!((tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")) &&
-                  (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64"))))
+            if (tipoOperando1.ToLower().Equals("int64") && tipoOperando2.ToLower().Equals("int64"))
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (divisão).");
+                PilhaTipos.Push("int64");
             }
-
-            if (tipoOperando1.ToLower().Equals(tipoOperando2.ToLower()))
+            else if (tipoOperando1.ToLower().Equals("float64") && (tipoOperando2.ToLower().Equals("float64") || tipoOperando2.ToLower().Equals("int64")) ||
+                     tipoOperando2.ToLower().Equals("float64") && (tipoOperando1.ToLower().Equals("float64") || tipoOperando1.ToLower().Equals("int64")))
             {
-                PilhaTipos.Push(tipoOperando1);
+                PilhaTipos.Push("float64");
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em operação de divisão");
+                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
             }
 
             CodigoObjetoAcao.AppendLine("div");
@@ -274,18 +331,18 @@ namespace MM_Compiler.AnaliseSemantica
                     break;
                 case "<>":
                     CodigoObjetoAcao.AppendLine("ceq");
-                    CodigoObjetoAcao.AppendLine("ldc.i4.1");
-                    CodigoObjetoAcao.AppendLine("xor");
+                    CodigoObjetoAcao.AppendLine("ldc.i4 0");
+                    CodigoObjetoAcao.AppendLine("ceq");
                     break;
                 case "<=":
                     CodigoObjetoAcao.AppendLine("clt");
+                    CodigoObjetoAcao.AppendLine("ldc.i4 0");
                     CodigoObjetoAcao.AppendLine("ceq");
-                    CodigoObjetoAcao.AppendLine("or");
                     break;
                 case ">=":
                     CodigoObjetoAcao.AppendLine("cgt");
+                    CodigoObjetoAcao.AppendLine("ldc.i4 0");
                     CodigoObjetoAcao.AppendLine("ceq");
-                    CodigoObjetoAcao.AppendLine("or");
                     break;
             }
 
@@ -294,15 +351,7 @@ namespace MM_Compiler.AnaliseSemantica
         
         private void ExecuteAction11(Token token)
         {
-            if (token.Lexeme.Equals("=") || token.Lexeme.Equals("<>") || token.Lexeme.Equals("<") ||
-                token.Lexeme.Equals("<=") || token.Lexeme.Equals(">") || token.Lexeme.Equals(">="))
-            {
-                Operador = token.Lexeme;
-            }
-            else
-            {
-                throw new SemanticError("Erro semântico, operador relacional inexistente na linguagem");
-            }
+            Operador = token.Lexeme;
         }
         
         private void ExecuteAction12()
@@ -412,6 +461,170 @@ namespace MM_Compiler.AnaliseSemantica
             PilhaTipos.Push("string");
             CodigoObjetoAcao.AppendLine($"ldstr {token.Lexeme}");
             CodigoObjeto += CodigoObjetoAcao.ToString();
+        }
+
+        private void ExecuteAction22(Token token)
+        {
+            TipoIdentificador = token.Lexeme;
+        }
+
+        private void ExecuteAction23(Token token)
+        {
+            ListaIdentificadores.Add(token.Lexeme);
+        }
+
+        private void ExecuteAction24()
+        {
+            switch (TipoIdentificador.ToLower())
+            {
+                case "int":
+                    TipoIdentificador = "int64";
+                    break;
+                case "real":
+                    TipoIdentificador = "float64";
+                    break;
+            }
+
+            foreach (var id in ListaIdentificadores)
+            {
+                if (TabelaSimbolos.Contains(id))
+                {
+                    throw new SemanticError("Id já declarado");
+                }
+                
+                TabelaSimbolos.Add(id, TipoIdentificador);
+                CodigoObjetoAcao.AppendLine($".locals({TipoIdentificador} {id})");
+            }
+
+            CodigoObjeto += CodigoObjetoAcao.ToString();
+            ListaIdentificadores.Clear();
+        }
+
+        private void ExecuteAction25()
+        {
+            foreach (var id in ListaIdentificadores)
+            {
+                if (!TabelaSimbolos.Contains(id))
+                {
+                    throw new SemanticError("Id não declarado");
+                }
+
+                TipoIdentificador = TabelaSimbolos[id].ToString();
+                CodigoObjetoAcao.AppendLine("call string ... ReadLine()");
+
+                switch (TipoIdentificador)
+                {
+                    case "int64":
+                        CodigoObjetoAcao.AppendLine("call int64 ... Int64::Parse(string)");
+                        break;
+                    case "float64":
+                        CodigoObjetoAcao.AppendLine("call float64 ... Double::Parse(string)");
+                        break;
+                }
+
+                CodigoObjetoAcao.AppendLine($"stloc {id}");
+            }
+
+            CodigoObjeto += CodigoObjetoAcao.ToString();
+            ListaIdentificadores.Clear();
+        }
+
+        private void ExecuteAction26(Token token)
+        {
+            var id = token.Lexeme;
+
+            if (!TabelaSimbolos.Contains(id))
+            {
+                throw new SemanticError("Id não declarado");
+            }
+
+            TipoIdentificador = TabelaSimbolos[id].ToString();
+            PilhaTipos.Push(TipoIdentificador);
+            //TODO: Verificar se id é de variável ou parâmetro formal.
+            CodigoObjetoAcao.AppendLine($"ldloc {id}");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
+        }
+
+        private void ExecuteAction27()
+        {
+            var id = ListaIdentificadores.Last();
+            ListaIdentificadores.Remove(id);
+
+            if (!TabelaSimbolos.Contains(id))
+            {
+                throw new SemanticError("Id não declarado");
+            }
+
+            var tipoIdentificador = TabelaSimbolos[id].ToString();
+            var tipoExpressao = PilhaTipos.Pop();
+
+            if (!tipoIdentificador.ToLower().Equals(tipoExpressao.ToLower()))
+            {
+                throw new SemanticError("Tipos incompatíveis em atribuição");
+            }
+
+            CodigoObjetoAcao.AppendLine($"stloc {id}");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
+        }
+
+        private void ExecuteAction28()
+        {
+
+        }
+
+        private void ExecuteAction29()
+        {
+            
+        }
+
+        private void ExecuteAction30()
+        {
+
+        }
+
+        private void ExecuteAction31()
+        {
+
+        }
+
+        private void ExecuteAction32()
+        {
+
+        }
+
+        private void ExecuteAction33()
+        {
+
+        }
+
+        private void ExecuteAction34()
+        {
+
+        }
+
+        private void ExecuteAction35()
+        {
+
+        }
+
+        private void ExecuteAction36()
+        {
+
+        }
+
+        private void ExecuteAction37()
+        {
+
+        }
+
+        private void ExecuteAction38()
+        {
+
+        }
+
+        private void ExecuteAction39()
+        {
+
         }
     }
 }
