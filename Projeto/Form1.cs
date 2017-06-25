@@ -57,7 +57,7 @@ namespace MM_Compiler
             }
             catch (SemanticError semanticError)
             {
-                MessageDisplay.Text = semanticError.Message;
+                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position + 1)} - {semanticError.Message}";
             }
         }
 

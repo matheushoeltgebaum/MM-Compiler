@@ -173,7 +173,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
+                throw new SemanticError("Tipos incompatíveis em expressão aritmética binária (adição).");
             }
 
             CodigoObjetoAcao.AppendLine("add");
@@ -196,7 +196,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
+                throw new SemanticError("Tipos incompatíveis em expressão aritmética binária (subtração).");
             }
 
             CodigoObjetoAcao.AppendLine("sub");
@@ -219,7 +219,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
+                throw new SemanticError("Tipos incompatíveis em expressão aritmética binária (multiplicação).");
             }
 
             CodigoObjetoAcao.AppendLine("mul");
@@ -242,7 +242,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em expressão aritmética (adição).");
+                throw new SemanticError("Tipos incompatíveis em expressão aritmética (divisão).");
             }
 
             CodigoObjetoAcao.AppendLine("div");
@@ -280,7 +280,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipo incompatível em operação unária (adição).");
+                throw new SemanticError("Tipo incompatível em operação aritmética unária (adição).");
             }
         }
         
@@ -294,7 +294,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipo incompatível em operação unária (subtração).");
+                throw new SemanticError("Tipo incompatível em operação aritmética unária (subtração).");
             }
 
             CodigoObjetoAcao.AppendLine("ldc.i8 -1");
@@ -315,7 +315,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em operação relacional.");
+                throw new SemanticError("Tipos incompatíveis em operação relacional.");
             }
 
             switch (Operador)
@@ -378,7 +378,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipo incompatível em operação not");
+                throw new SemanticError("Tipo incompatível em operação lógica unária.");
             }
 
             CodigoObjetoAcao.AppendLine("ldc.i4.1");
@@ -431,7 +431,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em operação lógica \"e\".");
+                throw new SemanticError("Tipos incompatíveis em operação lógica binária (e).");
             }
 
             CodigoObjetoAcao.AppendLine("and");
@@ -449,7 +449,7 @@ namespace MM_Compiler.AnaliseSemantica
             }
             else
             {
-                throw new SemanticError("Erro semântico, tipos incompatíveis em operação lógica \"ou\".");
+                throw new SemanticError("Tipos incompatíveis em operação lógica binária (ou).");
             }
 
             CodigoObjetoAcao.AppendLine("or");
@@ -489,7 +489,7 @@ namespace MM_Compiler.AnaliseSemantica
             {
                 if (TabelaSimbolos.Contains(id))
                 {
-                    throw new SemanticError("Id já declarado");
+                    throw new SemanticError("Identificador já declarado.");
                 }
                 
                 TabelaSimbolos.Add(id, TipoIdentificador);
@@ -506,19 +506,19 @@ namespace MM_Compiler.AnaliseSemantica
             {
                 if (!TabelaSimbolos.Contains(id))
                 {
-                    throw new SemanticError("Id não declarado");
+                    throw new SemanticError("Identificador não declarado.");
                 }
 
                 TipoIdentificador = TabelaSimbolos[id].ToString();
-                CodigoObjetoAcao.AppendLine("call string ... ReadLine()");
+                CodigoObjetoAcao.AppendLine("call string [mscorlib]System.Console::ReadLine()");
 
                 switch (TipoIdentificador)
                 {
                     case "int64":
-                        CodigoObjetoAcao.AppendLine("call int64 ... Int64::Parse(string)");
+                        CodigoObjetoAcao.AppendLine("call int64 [mscorlib]System.Int64::Parse(string)");
                         break;
                     case "float64":
-                        CodigoObjetoAcao.AppendLine("call float64 ... Double::Parse(string)");
+                        CodigoObjetoAcao.AppendLine("call float64 [mscorlib]System.Double::Parse(string)");
                         break;
                 }
 
@@ -535,7 +535,7 @@ namespace MM_Compiler.AnaliseSemantica
 
             if (!TabelaSimbolos.Contains(id))
             {
-                throw new SemanticError("Id não declarado");
+                throw new SemanticError("Identificador não declarado.");
             }
 
             TipoIdentificador = TabelaSimbolos[id].ToString();
@@ -552,7 +552,7 @@ namespace MM_Compiler.AnaliseSemantica
 
             if (!TabelaSimbolos.Contains(id))
             {
-                throw new SemanticError("Id não declarado");
+                throw new SemanticError("Identificador não declarado.");
             }
 
             var tipoIdentificador = TabelaSimbolos[id].ToString();
@@ -560,7 +560,7 @@ namespace MM_Compiler.AnaliseSemantica
 
             if (!tipoIdentificador.ToLower().Equals(tipoExpressao.ToLower()))
             {
-                throw new SemanticError("Tipos incompatíveis em atribuição");
+                throw new SemanticError("Tipos incompatíveis em comando de atribuição.");
             }
 
             CodigoObjetoAcao.AppendLine($"stloc {id}");
