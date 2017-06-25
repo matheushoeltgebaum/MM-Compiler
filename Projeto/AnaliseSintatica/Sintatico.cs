@@ -109,9 +109,6 @@ namespace MM_Compiler.AnaliseSintatica
             currentToken = scanner.NextToken();
 
             while (!Step(filepath)) ;
-            
-            ILGenerator ilGenerator = new ILGenerator(semanticAnalyser.CodigoObjeto, filepath);
-            ilGenerator.GenerateILFile();
         }
     }
 }

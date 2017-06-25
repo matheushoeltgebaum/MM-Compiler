@@ -5,6 +5,7 @@ using System.Text;
 using MM_Compiler.AnaliseLexica;
 using MM_Compiler.AnaliseSemantica;
 using MM_Compiler.AnaliseSintatica;
+using MM_Compiler.GeradorCodigo;
 
 namespace MM_Compiler
 {
@@ -24,7 +25,39 @@ namespace MM_Compiler
 
         private void ButtonGerarCodigo_Click(object sender, EventArgs e)
         {
-            this.MessageDisplay.Text = Environment.NewLine + "Geração de código ainda não foi implementada.";
+            ButtonSalvar.PerformClick();
+
+            var lexico = new Lexico();
+            var sintatico = new Sintatico();
+            var semantico = new Semantico();
+
+            lexico.SetInput(TextEditor.Text);
+
+            try
+            {
+                sintatico.parse(lexico, semantico, LabelPath.Text);
+                ILGenerator ilGenerator = new ILGenerator(semantico.CodigoObjeto, LabelPath.Text);
+                ilGenerator.GenerateILFile();
+
+                MessageDisplay.Text = @"Código objeto gerado com sucesso";
+            }
+            catch (LexicalError lexicalError)
+            {
+                MessageDisplay.Text = lexicalError.Message.Equals("%CARACTERENAOESPERADO%")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(lexicalError.Position) + 1} – {TextEditor.Text.Substring(lexicalError.Position, 1)} símbolo inválido"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(lexicalError.Position) + 1} – {lexicalError.Message}";
+            }
+            catch (SyntaticError syntaticError)
+            {
+                MessageDisplay.Text = syntaticError.Token.Lexeme.Equals("$")
+                    ? $"Erro na linha {TextEditor.GetLineFromCharIndex(syntaticError.Position) + 1} – {string.Format(syntaticError.Message, "fim do programa")}"
+                    : $"Erro na linha {TextEditor.GetLineFromCharIndex(syntaticError.Position) + 1} – {string.Format(syntaticError.Message, syntaticError.Token.Lexeme)}";
+            }
+            catch (SemanticError semanticError)
+            {
+                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position + 1)} - {semanticError.Message}";
+            }
+
         }
 
         private void ButtonCompilar_Click(object sender, EventArgs e)
