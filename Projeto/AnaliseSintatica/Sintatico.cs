@@ -75,7 +75,14 @@ namespace MM_Compiler.AnaliseSintatica
             }
             else // isSemanticAction(x)
             {
-                semanticAnalyser.ExecuteAction(x-FIRST_SEMANTIC_ACTION, previousToken, filepath);
+                try
+                {
+                    semanticAnalyser.ExecuteAction(x - FIRST_SEMANTIC_ACTION, previousToken, filepath);
+                }
+                catch (SemanticError e)
+                {
+                    throw new SemanticError(e.Message, currentToken.Position);
+                }
                 return false;
             }
         }

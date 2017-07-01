@@ -14,7 +14,6 @@ namespace MM_Compiler
         public FormCompiler()
         {
             InitializeComponent();
-
         }
 
         #region Métodos sobre a View
@@ -55,7 +54,7 @@ namespace MM_Compiler
             }
             catch (SemanticError semanticError)
             {
-                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position + 1)} - {semanticError.Message}";
+                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position) + 1} - {semanticError.Message}";
             }
 
         }
@@ -90,7 +89,7 @@ namespace MM_Compiler
             }
             catch (SemanticError semanticError)
             {
-                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position + 1)} - {semanticError.Message}";
+                MessageDisplay.Text = $"Erro na linha {TextEditor.GetLineFromCharIndex(semanticError.Position) +1} - {semanticError.Message}";
             }
         }
 

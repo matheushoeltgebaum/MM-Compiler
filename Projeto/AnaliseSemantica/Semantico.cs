@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using MM_Compiler.AnaliseLexica;
 
@@ -12,22 +14,40 @@ namespace MM_Compiler.AnaliseSemantica
 {
     public class Semantico : Constants
     {
+        private string NomeFuncao { get; set; }
+        private string AppModule { get; } = "_Principal";
+        private string VariavelAtribuicao { get; set; }
+        private List<Tuple<string, string>> ParametrosFuncao { get; set; }
         private string Operador { get; set; }
         public string CodigoObjeto { get; private set; }
         private StringBuilder CodigoObjetoAcao { get; set; }
         private Stack<string> PilhaTipos { get; set; }
-        private Hashtable TabelaSimbolos { get; set; }
         private string TipoIdentificador { get; set; }
-        private List<string> ListaIdentificadores { get; set; }
+        //TODO VARIAVEL NÃO PODE SER USADA DESTA FORMA
+        private List<string> ListaTemporariaIdentificadoresMesmoTipo { get; set; }
+        private long contadorLabel { get; set; }
+        private Stack<string> PilhaLabels { get; set; }
+
+        private Dictionary<string, Method> ListMethod { get; set; }
+
+        private Dictionary<string, string> CurrentScope { get; set; }
+
+        // Empilhar Contexto de variaveis
+        private const string DEF_LABEL = "lb";
 
         public Semantico()
         {
             this.PilhaTipos = new Stack<string>();
             this.CodigoObjeto = string.Empty;
             this.Operador = string.Empty;
-            this.TabelaSimbolos = new Hashtable();
+            Dictionary<string, string> a;
+            //this.ScopeGlobal = new Dictionary<string, string>();
             this.TipoIdentificador = string.Empty;
-            this.ListaIdentificadores = new List<string>();
+            this.ListaTemporariaIdentificadoresMesmoTipo = new List<string>();
+            PilhaLabels = new Stack<string>();
+            contadorLabel = 0;
+            CurrentScope = new Dictionary<string, string>();
+            ListMethod = new Dictionary<string, Method>();
         }
 
         public void ExecuteAction(int action, Token token, string filepath)
@@ -134,7 +154,7 @@ namespace MM_Compiler.AnaliseSemantica
                     ExecuteAction32();
                     break;
                 case 33:
-                    ExecuteAction33();
+                    ExecuteAction33(token);
                     break;
                 case 34:
                     ExecuteAction34();
@@ -146,13 +166,25 @@ namespace MM_Compiler.AnaliseSemantica
                     ExecuteAction36();
                     break;
                 case 37:
-                    ExecuteAction37();
+                    ExecuteAction37(token);
                     break;
                 case 38:
                     ExecuteAction38();
                     break;
                 case 39:
                     ExecuteAction39();
+                    break;
+                case 40:
+                    ExecuteAction40(token);
+                    break;
+                case 41:
+                    ExecuteAction41(token);
+                    break;
+                case 42:
+                    ExecuteAction42(token);
+                    break;
+                case 43:
+                    ExecuteAction43();
                     break;
             }
         }
@@ -465,12 +497,20 @@ namespace MM_Compiler.AnaliseSemantica
 
         private void ExecuteAction22(Token token)
         {
-            TipoIdentificador = token.Lexeme;
+            // caracter | logico | inteiro | real;
+            if (token.Lexeme.ToUpperInvariant().Equals("INTEIRO"))
+                TipoIdentificador = "int64";
+            else if (token.Lexeme.ToUpperInvariant().Equals("REAL"))
+                TipoIdentificador = "float64";
+            else if (token.Lexeme.ToUpperInvariant().Equals("LOGICO"))
+                TipoIdentificador = "bool";
+            else if (token.Lexeme.ToUpperInvariant().Equals("CARACTER"))
+                TipoIdentificador = "string";
         }
 
         private void ExecuteAction23(Token token)
         {
-            ListaIdentificadores.Add(token.Lexeme);
+            ListaTemporariaIdentificadoresMesmoTipo.Add(AjustarIdentificadores(token.Lexeme));
         }
 
         private void ExecuteAction24()
@@ -485,31 +525,31 @@ namespace MM_Compiler.AnaliseSemantica
                     break;
             }
 
-            foreach (var id in ListaIdentificadores)
+            foreach (var id in ListaTemporariaIdentificadoresMesmoTipo)
             {
-                if (TabelaSimbolos.Contains(id))
+                if (CurrentScope.ContainsKey(id) || ListMethod.ContainsKey(id))
                 {
                     throw new SemanticError("Identificador já declarado.");
                 }
                 
-                TabelaSimbolos.Add(id, TipoIdentificador);
+                CurrentScope.Add(id, TipoIdentificador);
                 CodigoObjetoAcao.AppendLine($".locals({TipoIdentificador} {id})");
             }
 
             CodigoObjeto += CodigoObjetoAcao.ToString();
-            ListaIdentificadores.Clear();
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
         }
 
         private void ExecuteAction25()
         {
-            foreach (var id in ListaIdentificadores)
+            foreach (var id in ListaTemporariaIdentificadoresMesmoTipo)
             {
-                if (!TabelaSimbolos.Contains(id))
+                if (!CurrentScope.ContainsKey(id))
                 {
-                    throw new SemanticError("Identificador não declarado.");
+                    throw new SemanticError($"{id} não declarado.");
                 }
 
-                TipoIdentificador = TabelaSimbolos[id].ToString();
+                TipoIdentificador = CurrentScope[id];
                 CodigoObjetoAcao.AppendLine("call string [mscorlib]System.Console::ReadLine()");
 
                 switch (TipoIdentificador)
@@ -520,42 +560,46 @@ namespace MM_Compiler.AnaliseSemantica
                     case "float64":
                         CodigoObjetoAcao.AppendLine("call float64 [mscorlib]System.Double::Parse(string)");
                         break;
+                    case "bool":
+                        CodigoObjetoAcao.AppendLine("call bool [mscorlib]System.Boolean::Parse(string)");
+                        break;
                 }
 
                 CodigoObjetoAcao.AppendLine($"stloc {id}");
             }
 
             CodigoObjeto += CodigoObjetoAcao.ToString();
-            ListaIdentificadores.Clear();
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
         }
 
         private void ExecuteAction26(Token token)
         {
-            var id = token.Lexeme;
-
-            if (!TabelaSimbolos.Contains(id))
+            var id = AjustarIdentificadores(token.Lexeme);
+            if (!CurrentScope.ContainsKey(id) && !ListMethod.ContainsKey(id) && (NomeFuncao == null || !ListMethod[NomeFuncao].parametros.Exists(p => p.Item1.Equals(id))))
             {
-                throw new SemanticError("Identificador não declarado.");
+                throw new SemanticError($"{token.Lexeme} não declarado.");
             }
 
-            TipoIdentificador = TabelaSimbolos[id].ToString();
+            TipoIdentificador = CurrentScope.ContainsKey(id)
+                ? CurrentScope[id]
+                : ListMethod[NomeFuncao].parametros.First(p => p.Item1.Equals(id)).Item2;
             PilhaTipos.Push(TipoIdentificador);
-            //TODO: Verificar se id é de variável ou parâmetro formal.
-            CodigoObjetoAcao.AppendLine($"ldloc {id}");
+            CodigoObjetoAcao.AppendLine(CurrentScope.ContainsKey(id) ? $"ldloc {id}" : $"ldarg {id}");
             CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction27()
         {
-            var id = ListaIdentificadores.Last();
-            ListaIdentificadores.Remove(id);
-
-            if (!TabelaSimbolos.Contains(id))
+            var id = VariavelAtribuicao;
+            VariavelAtribuicao = null;
+            if (!CurrentScope.ContainsKey(id) && (NomeFuncao == null || !ListMethod[NomeFuncao].parametros.Exists(p => p.Item1.Equals(id))))
             {
-                throw new SemanticError("Identificador não declarado.");
+                throw new SemanticError($"{id} não declarado.");
             }
 
-            var tipoIdentificador = TabelaSimbolos[id].ToString();
+            var tipoIdentificador = CurrentScope.ContainsKey(id)
+                ? CurrentScope[id]
+                : ListMethod[NomeFuncao].parametros.First(p => p.Item1.Equals(id)).Item2;
             var tipoExpressao = PilhaTipos.Pop();
 
             if (!tipoIdentificador.ToLower().Equals(tipoExpressao.ToLower()))
@@ -569,62 +613,166 @@ namespace MM_Compiler.AnaliseSemantica
 
         private void ExecuteAction28()
         {
+            contadorLabel++;
+            var label = DEF_LABEL + contadorLabel.ToString().PadRight(15, '0');
+            PilhaLabels.Push(label);
+            CodigoObjetoAcao.AppendLine("brfalse "+ label);
+            CodigoObjeto += CodigoObjetoAcao.ToString();
 
         }
 
         private void ExecuteAction29()
         {
-            
+            var label = PilhaLabels.Pop();
+            CodigoObjetoAcao.AppendLine(label+ ":");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction30()
         {
-
+            contadorLabel++;
+            var labelElse = DEF_LABEL + contadorLabel.ToString().PadRight(15, '0');
+            var labelSe = PilhaLabels.Pop();
+            PilhaLabels.Push(labelElse);
+            CodigoObjetoAcao.AppendLine("br " + labelElse);
+            CodigoObjetoAcao.AppendLine(labelSe + ":");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction31()
         {
-
+            contadorLabel++;
+            var label = DEF_LABEL + contadorLabel.ToString().PadRight(15, '0');
+            PilhaLabels.Push(label);
+            CodigoObjetoAcao.AppendLine(label + ":");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction32()
         {
-
+            CodigoObjetoAcao.AppendLine("brfalse " + PilhaLabels.Pop());
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
-        private void ExecuteAction33()
+        private void ExecuteAction33(Token token)
         {
-
+            NomeFuncao = AjustarIdentificadores(token.Lexeme);
+            ParametrosFuncao = new List<Tuple<string, string>>();
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
         }
 
         private void ExecuteAction34()
         {
+            ListMethod.Add(NomeFuncao, new Method() {parametros = ParametrosFuncao, tipoRetorno = TipoIdentificador});
 
+            ParametrosFuncao = new List<Tuple<string, string>>();
+            NomeFuncao = null;
         }
 
         private void ExecuteAction35()
         {
+            ListMethod.Add(NomeFuncao, new Method() { parametros = ParametrosFuncao, tipoRetorno = "void" });
 
+            ParametrosFuncao = new List<Tuple<string, string>>();
+            NomeFuncao = null;
         }
 
         private void ExecuteAction36()
         {
-
+            foreach (var identificador in ListaTemporariaIdentificadoresMesmoTipo)
+            {
+                ParametrosFuncao.Add(new Tuple<string, string>(identificador, TipoIdentificador));
+            }
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
         }
 
-        private void ExecuteAction37()
+        private void ExecuteAction37(Token token)
         {
+            NomeFuncao = AjustarIdentificadores(token.Lexeme);
+            CurrentScope = new Dictionary<string, string>();
+            var listaParam = "";
+            foreach (var param in ListMethod[NomeFuncao].parametros)
+            {
+                if (string.IsNullOrEmpty(listaParam))
+                    listaParam += $"{param.Item2} {param.Item1}";
+                else
+                    listaParam += $", {param.Item2} {param.Item1}";
+                
+                //CurrentScope.Add(param.Item1, param.Item2);
+            }
+            var result = $".method public static {ListMethod[NomeFuncao].tipoRetorno} {NomeFuncao}({listaParam})";
+            CodigoObjetoAcao.AppendLine(result);
+            CodigoObjetoAcao.AppendLine("{");
 
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction38()
         {
+            var funcao = ListMethod[NomeFuncao];
 
+            var listaParam = "";
+            foreach (var param in funcao.parametros)
+            {
+                if (string.IsNullOrEmpty(listaParam))
+                    listaParam += $"{param.Item2}";
+                else
+                    listaParam += $", {param.Item2}";
+                
+            }
+            var chamada = $"call {funcao.tipoRetorno} {AppModule}::{NomeFuncao}({listaParam})";
+            CodigoObjetoAcao.AppendLine(chamada);
+
+            CodigoObjeto += CodigoObjetoAcao.ToString();
         }
 
         private void ExecuteAction39()
         {
-
+            ExecuteAction38();
+            //TODO Adicionar resultado para pilha
         }
+
+        private void ExecuteAction40(Token token)
+        {
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
+            VariavelAtribuicao = AjustarIdentificadores(token.Lexeme);
+        }
+
+        private void ExecuteAction41(Token token)
+        {
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
+            NomeFuncao = AjustarIdentificadores(token.Lexeme);
+        }
+
+        private void ExecuteAction42(Token token)
+        {
+            ListaTemporariaIdentificadoresMesmoTipo.Clear();
+        }
+
+        private void ExecuteAction43()
+        {
+            CodigoObjetoAcao.AppendLine("ret");
+            CodigoObjeto += CodigoObjetoAcao.ToString();
+        }
+
+        public static string AjustarIdentificadores(string text)
+        {
+            StringBuilder sbReturn = new StringBuilder();
+            var arrayText = text.Normalize(NormalizationForm.FormD).ToCharArray();
+            foreach (char letter in arrayText)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(letter) != UnicodeCategory.NonSpacingMark)
+                    sbReturn.Append(letter);
+            }
+            return "_"+sbReturn.ToString().ToUpper();
+        }
+    }
+
+    
+
+    public class Method
+    {
+        public string tipoRetorno { get; set; }
+        public List<Tuple<string, string>> parametros { get; set; }
     }
 }

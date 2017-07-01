@@ -7,7 +7,7 @@ ParserName = Sintatico
 SemanticName = Semantico
 ScannerCaseSensitive = true
 ScannerTable = Compact
-Input = String
+Input = Stream
 Parser = LL
 #RegularDefinitions
 letra: [A-Za-z]
@@ -123,7 +123,7 @@ verdadeiro = identificador: "verdadeiro"
 <expressao_cont>
 <relacional_cont>
 #Grammar
-<programa>::= #15 algoritmo constante_caractere <cabecalho_modulos> <variaveis> inicio <lista_comandos> fim #16 <lista_modulos> #17;
+<programa>::= #15 algoritmo constante_caractere #42 <cabecalho_modulos> <variaveis> inicio <lista_comandos> fim #16 <lista_modulos> #17;
 <cabecalho_modulos>::=<cabecalho> <cabecalho_modulos>| î;
 <lista_comandos>::= <comando> ";" <lista_comandos>| î;
 <comando>::= identificador #23 <comando_identificador> | <cmd_entrada> | <cmd_saida> | <cmd_selecao> | <cmd_repeticao> | <interrompa> | <retorne>;
@@ -140,7 +140,7 @@ verdadeiro = identificador: "verdadeiro"
 <variaveis>::= variaveis <lista_variaveis> | î;
 <lista_variaveis>::= <parametro> #24 ";"<continuacao_lista_variaveis>;
 <continuacao_lista_variaveis>::= <parametro> #24 ";"<continuacao_lista_variaveis> | î;
-<cmd_atribuicao>::= "<-" <expressao> #27;
+<cmd_atribuicao>::= #40 "<-" <expressao> #27;
 <cmd_entrada>::=leia"("<lista_identificadores> #25 ")" ;
 <cmd_saida>::=escreva"("<lista_valores>")";
 <lista_valores>::= <valor> #7 <lista_valores_cont>;
@@ -150,8 +150,8 @@ verdadeiro = identificador: "verdadeiro"
 <cmd_selecao_senao>::=senao #30 <lista_comandos> | î;
 <cmd_repeticao>::=repita #31 <lista_comandos> ate <expressao> #32;
 <interrompa>::=interrompa;
-<retorne>::=retorne <expressao>;
-<cmd_chamada_modulo>::="("<parametros_reais>")" #38;
+<retorne>::=retorne <expressao> #43;
+<cmd_chamada_modulo>::= #41 "("<parametros_reais>")" #38;
 <parametros_reais>::= <lista_expressoes> | î;
 <lista_expressoes>::= <expressao>  <lista_expressoes_cont>;
 <lista_expressoes_cont> ::= "," <lista_expressoes> | î;
@@ -169,4 +169,4 @@ verdadeiro = identificador: "verdadeiro"
 <termo> ::= <fator> <termo_cont>;
 <termo_cont> ::= "*" <fator> #3 <termo_cont> | "/" <fator> #4 <termo_cont> | î ;
 <fator> ::= identificador #23 <fator_identificador> | constante_inteira #5 | constante_real #6 | constante_caractere #21 | "(" <expressao> ")" | "+" <fator> #8 | "-" <fator> #9;
-<fator_identificador> ::=  "(" <parametros_reais> ")" #39 | î  #26;
+<fator_identificador> ::=  #41 "(" <parametros_reais> ")" #39 | î #40 #26;
