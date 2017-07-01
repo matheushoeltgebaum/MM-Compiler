@@ -529,7 +529,7 @@ namespace MM_Compiler.AnaliseSemantica
             {
                 if (CurrentScope.ContainsKey(id) || ListMethod.ContainsKey(id))
                 {
-                    throw new SemanticError("Identificador já declarado.");
+                    throw new SemanticError($"{id} já declarado.");
                 }
                 
                 CurrentScope.Add(id, TipoIdentificador);
